@@ -12,11 +12,11 @@ sys.path.insert(0, str(ROOT))
 import dash
 from dash import Dash, Input, Output, html
 
-from src.pages import analisis, departamento, mapa, ranking, recintos
+from src.pages import analisis, departamento, mapa, ranking, recintos, inteligencia
 
 app = Dash(
     __name__,
-    title="Bolivia · Subnacionales 2026",
+    title="Bolivia · Elecciones Subnacionales 2026",
     assets_folder=str(ROOT / "src" / "assets"),
     suppress_callback_exceptions=True,
 )
@@ -62,6 +62,7 @@ app.layout = html.Div(
                         html.Button("Mapa interactivo", id="tab-mapa",     n_clicks=0, className="tab"),
                         html.Button("Recintos",        id="tab-recintos", n_clicks=0, className="tab"),
                         html.Button("Análisis",         id="tab-analisis", n_clicks=0, className="tab"),
+                        html.Button("Inteligencia", id="tab-inteligencia", n_clicks=0, className="tab tab-inteligencia"),
                     ],
                 ),
                 html.Div(id="page-content"),
@@ -72,29 +73,32 @@ app.layout = html.Div(
 
 
 @app.callback(
-    Output("tab-ranking",  "className"),
-    Output("tab-dept",     "className"),
-    Output("tab-mapa",     "className"),
-    Output("tab-recintos", "className"),
-    Output("tab-analisis", "className"),
-    Output("page-content", "children"),
-    Input("tab-ranking",   "n_clicks"),
-    Input("tab-dept",      "n_clicks"),
-    Input("tab-mapa",      "n_clicks"),
-    Input("tab-recintos",  "n_clicks"),
-    Input("tab-analisis",  "n_clicks"),
+    Output("tab-ranking",      "className"),
+    Output("tab-dept",         "className"),
+    Output("tab-mapa",          "className"),
+    Output("tab-recintos",     "className"),
+    Output("tab-analisis",     "className"),
+    Output("tab-inteligencia", "className"),
+    Output("page-content",     "children"),
+    Input("tab-ranking",       "n_clicks"),
+    Input("tab-dept",          "n_clicks"),
+    Input("tab-mapa",          "n_clicks"),
+    Input("tab-recintos",      "n_clicks"),
+    Input("tab-analisis",      "n_clicks"),
+    Input("tab-inteligencia",  "n_clicks"),
     prevent_initial_call=False,
 )
-def switch_tab(n_ranking, n_dept, n_mapa, n_recintos, n_analisis):
+def switch_tab(n_ranking, n_dept, n_mapa, n_recintos, n_analisis, n_inteligencia):
     ctx     = dash.callback_context
     trigger = ctx.triggered[0]["prop_id"].split(".")[0] if ctx.triggered else "tab-ranking"
     b, a    = "tab", "tab tab-active"
 
-    if trigger == "tab-dept":     return b, a, b, b, b, departamento.layout()
-    if trigger == "tab-mapa":     return b, b, a, b, b, mapa.layout()
-    if trigger == "tab-recintos": return b, b, b, a, b, recintos.layout()
-    if trigger == "tab-analisis": return b, b, b, b, a, analisis.layout()
-    return a, b, b, b, b, ranking.layout()
+    if trigger == "tab-dept":         return b, a, b, b, b, b, departamento.layout()
+    if trigger == "tab-mapa":         return b, b, a, b, b, b, mapa.layout()
+    if trigger == "tab-recintos":     return b, b, b, a, b, b, recintos.layout()
+    if trigger == "tab-analisis":     return b, b, b, b, a, b, analisis.layout()
+    if trigger == "tab-inteligencia": return b, b, b, b, b, a, inteligencia.layout()
+    return a, b, b, b, b, b, ranking.layout()
 
 
 @app.callback(
@@ -212,4 +216,4 @@ if __name__ == "__main__":
   ║   http://localhost:{APP_PORT}                        ║
   ╚══════════════════════════════════════════════╝
     """)
-    app.run(debug=APP_DEBUG, host=APP_HOST, port=APP_PORT)
+    app.run(debug=False, host="0.0.0.0", port=7860)

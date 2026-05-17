@@ -30,7 +30,7 @@ def ranking_departamentos() -> pd.DataFrame:
 
     Columnas:
         id, nombre, ganador_v1, ganador_final, habilitados,
-        participacion_pct, pct_ganador_v1, tiene_segunda_vuelta
+        votaron, no_votaron, participacion_pct, pct_ganador_v1, tiene_segunda_vuelta
     """
     depts  = get_departamentos()
     man_v2 = get_gobernaciones_v2()
@@ -39,14 +39,20 @@ def ranking_departamentos() -> pd.DataFrame:
     rows = []
     for did, info in depts.items():
         g = info.get("gobernador", {})
-        ganador_final = man_v2[did]["ganador"] if did in man_v2 else g.get("nombre", "—")
+        habilitado = g.get("habilitados", 0)
+        validos_pct = g.get("validos", 0)
+        votaron = round(habilitado * validos_pct)
+        no_votaron = habilitado - votaron
+        winner_final = man_v2[did]["ganador"] if did in man_v2 else g.get("nombre", "—")
         rows.append({
             "id":                   did,
             "nombre":               info["nombre_departamento"],
             "ganador_v1":           g.get("nombre", "—"),
-            "ganador_final":        ganador_final,
-            "habilitados":          g.get("habilitados", 0),
-            "participacion_pct":    round(g.get("validos", 0) * 100, 1),
+            "ganador_final":        winner_final,
+            "habilitados":          habilitado,
+            "votaron":              votaron,
+            "no_votaron":           no_votaron,
+            "participacion_pct":    round(validos_pct * 100, 1),
             "pct_ganador_v1":       round(g.get("ganador", 0) * 100, 1),
             "tiene_segunda_vuelta": did in v2_ids,
         })

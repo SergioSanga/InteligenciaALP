@@ -349,6 +349,113 @@ a { color: var(--accent); }
   font-weight: 600 !important;
 }
 
+.tab.tab-inteligencia {
+  background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(59,130,246,0.15)) !important;
+  border-left: 2px solid var(--accent-v2) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* ══ SUB-TABS INTELIGENCIA ══════════════════════════════════════════════════ */
+.sub-tabs-row {
+  display: flex !important;
+  gap: 4px !important;
+  margin-bottom: 24px !important;
+  border-bottom: 1px solid var(--border) !important;
+  padding-bottom: 0 !important;
+}
+
+.sub-tab {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  color: var(--text-lo) !important;
+  padding: 10px 18px !important;
+  margin-bottom: -1px !important;
+  cursor: pointer !important;
+  font-family: var(--font) !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: all 0.15s !important;
+  border-radius: var(--radius-md) var(--radius-md) 0 0 !important;
+  white-space: nowrap !important;
+  outline: none !important;
+}
+.sub-tab:hover {
+  color: var(--text-mid) !important;
+  background: var(--bg-hover) !important;
+}
+.sub-tab.sub-tab-active {
+  color: var(--accent-v2) !important;
+  border-bottom-color: var(--accent-v2) !important;
+  background: rgba(124,58,237,0.08) !important;
+  font-weight: 600 !important;
+}
+
+/* Stat bar para distribución */
+.stat-bar {
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 8px !important;
+}
+
+/* Recomendación highlight */
+.recomendacion-box {
+  background: var(--bg-surface-2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 12px 16px !important;
+  margin: 8px 0 !important;
+  color: var(--text-mid) !important;
+  font-size: 0.78rem !important;
+  line-height: 1.5 !important;
+}
+
+/* ══ CONSTRUCCIÓN OVERLAY ════════════════════════════════════════════════════ */
+.construccion-overlay {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 60vh !important;
+  padding: 40px 20px !important;
+}
+
+.construccion-box {
+  text-align: center !important;
+  background: var(--bg-surface) !important;
+  border: 2px dashed var(--border) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 48px 40px !important;
+  max-width: 480px !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.construccion-icon {
+  font-size: 4rem !important;
+  margin-bottom: 16px !important;
+}
+
+.construccion-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--text-hi) !important;
+  margin-bottom: 8px !important;
+}
+
+.construccion-sub {
+  font-size: 0.95rem !important;
+  color: var(--text-mid) !important;
+  margin-bottom: 20px !important;
+}
+
+.construccion-detail {
+  font-size: 0.8rem !important;
+  color: var(--accent) !important;
+  background: var(--accent-glow) !important;
+  padding: 10px 16px !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--accent) !important;
+}
+
 /* ══ CARD ════════════════════════════════════════════════════════════════════ */
 .card {
   background: var(--bg-surface) !important;
